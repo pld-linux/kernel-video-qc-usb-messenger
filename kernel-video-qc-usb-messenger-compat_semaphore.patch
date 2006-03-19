@@ -1,0 +1,11 @@
+--- ./quickcam.h.org	2006-03-19 21:12:30.000000000 +0000
++++ ./quickcam.h	2006-03-19 21:12:44.000000000 +0000
+@@ -533,7 +533,7 @@
+ /* Main per-camera data structure, most important thing in whole driver */
+ struct quickcam {
+ 	/* The following entries are initialized in qc_usb_init() when camera is plugged in */
+-	struct semaphore lock;			/* Allow only one process to access quickcam at a time */
++	struct compat_semaphore lock;		/* Allow only one process to access quickcam at a time */
+ 	struct list_head list;			/* All cameras are in a doubly linked list */
+ 	int users;				/* User count (simultaneous open count) */
+ 	struct usb_device *dev;			/* USB device, set to NULL when camera disconnected and interrupts disabled */
