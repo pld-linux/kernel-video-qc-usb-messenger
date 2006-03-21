@@ -35,14 +35,23 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Here are some information about the driver:
+ - Support for Quickcam Messenger (0x046D, 0x08F0) & (0x046D, 0x08F6)
+ - Support for Quickcam Communicate (0x046D, 0x08F5)
+ - 162x124, 162x248, 324x124, 324x248 resolution available
+ - Auto exposure works (need some tuning though)
+ - Auto shutter-control works (need some tuning though)
+ - Read status of the button on the camera
+ - Compressed format is still unknown
 
-    - Support for Quickcam Messenger (0x046D, 0x08F0) & (0x046D, 0x08F6)
-    - Support for Quickcam Communicate (0x046D, 0x08F5)
-    - 162x124, 162x248, 324x124, 324x248 resolution available
-    - Auto exposure works (need some tuning though)
-    - Auto shutter-control works (need some tuning though)
-    - Read status of the button on the camera
-    - Compressed format is still unknown
+%description -l pl
+Trochê informacji o sterowniku:
+ - obs³uguje kamery Quickcam Messenger (0x046D, 0x08F0) i (0x046D, 0x08F6)
+ - obs³uguje kamery Quickcam Communicate (0x046D, 0x08F5)
+ - dostêpne rozdzielczo¶ci to 162x124, 162x248, 324x124, 324x248
+ - dzia³a automatyczna ekspozycja (ale wymaga podregulowania)
+ - dzia³a automatyczna przys³ona (ale wymaga podregulowania)
+ - odczytuje status przycisku kamery
+ - format kompresji pozostaje nieznany
 
 %package -n kernel-smp-video-%{_module_name}
 Summary:	SMP kernel module for Logitech QuickCam Messenger USB cameras
