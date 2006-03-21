@@ -11,11 +11,11 @@
 %undefine with_smp
 %endif
 %define		_module_name	qc-usb-messenger
+%define	_rel	0.2
 Summary:	Kernel module for Logitech QuickCam Messenger USB cameras
 Summary(pl):	Modu³ j±dra do kamer USB Logitech QuickCam Messenger
 Name:		kernel-video-%{_module_name}
 Version:	1.1
-%define	_rel	0.2
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
@@ -36,13 +36,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Here are some information about the driver:
 
-    * Support for Quickcam Messenger (0x046D, 0x08F0) & (0x046D, 0x08F6)
-    * Support for Quickcam Communicate (0x046D, 0x08F5)
-    * 162x124, 162x248, 324x124, 324x248 resolution available
-    * Auto exposure works (need some tuning though)
-    * Auto shutter-control works (need some tuning though)
-    * Read status of the button on the camera
-    * Compressed format is still unknown
+    - Support for Quickcam Messenger (0x046D, 0x08F0) & (0x046D, 0x08F6)
+    - Support for Quickcam Communicate (0x046D, 0x08F5)
+    - 162x124, 162x248, 324x124, 324x248 resolution available
+    - Auto exposure works (need some tuning though)
+    - Auto shutter-control works (need some tuning though)
+    - Read status of the button on the camera
+    - Compressed format is still unknown
 
 %package -n kernel-smp-video-%{_module_name}
 Summary:	SMP kernel module for Logitech QuickCam Messenger USB cameras
@@ -70,7 +70,8 @@ Group:		Base/Kernel
 Documentation and test program to Logitech QuickCam Messenger USB.
 
 %description -n %{_module_name} -l pl
-Dokumentacja i program testuj±cy do kamer Logitech QuickCam Messenger USB.
+Dokumentacja i program testuj±cy do kamer Logitech QuickCam Messenger
+USB.
 
 %prep
 %setup -q -n %{_module_name}-%{version}
@@ -106,7 +107,7 @@ for cfg in %{?with_dist_kernel:%{?with_smp:smp} up}%{!?with_dist_kernel:nondist}
 		SYSOUT=$PWD/o \
 		M=$PWD O=$PWD/o \
 		%{?with_verbose:V=1}
-	
+
 	mv *.ko built/$cfg
 done
 
