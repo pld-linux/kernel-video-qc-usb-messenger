@@ -12,11 +12,11 @@
 %endif
 %define		_module_name	qc-usb-messenger
 %define	_rel	0.2
+%define	_rel	1
 Summary:	Kernel module for Logitech QuickCam Messenger USB cameras
 Summary(pl):	Modu³ j±dra do kamer USB Logitech QuickCam Messenger
 Name:		kernel-video-%{_module_name}
 Version:	1.2
-%define	_rel	1
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
@@ -25,7 +25,7 @@ Source0:	http://home.mag.cx/messenger/source/%{_module_name}-%{version}.tar.gz
 Patch0:		%{name}-compat_semaphore.patch
 URL:		http://home.mag.cx/messenger/
 %if %{with kernel} && %{with dist_kernel}
-BuildRequires:	kernel-module-build >= 2.6}
+BuildRequires:	kernel-module-build >= 3:2.6}
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.118
 %if %{with kernel} && %{with dist_kernel}
@@ -46,7 +46,8 @@ Here are some information about the driver:
 
 %description -l pl
 Trochê informacji o sterowniku:
- - obs³uguje kamery Quickcam Messenger (0x046D, 0x08F0) i (0x046D, 0x08F6)
+ - obs³uguje kamery Quickcam Messenger (0x046D, 0x08F0) i (0x046D,
+   0x08F6)
  - obs³uguje kamery Quickcam Communicate (0x046D, 0x08F5)
  - dostêpne rozdzielczo¶ci to 162x124, 162x248, 324x124, 324x248
  - dzia³a automatyczna ekspozycja (ale wymaga podregulowania)
