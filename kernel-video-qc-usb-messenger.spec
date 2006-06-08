@@ -10,18 +10,18 @@
 %ifarch sparc
 %undefine with_smp
 %endif
+#
 %define		_module_name	qc-usb-messenger
-%define	_rel	0.2
-%define	_rel	1
+%define	_rel	0.1
 Summary:	Kernel module for Logitech QuickCam Messenger USB cameras
 Summary(pl):	Modu³ j±dra do kamer USB Logitech QuickCam Messenger
 Name:		kernel-video-%{_module_name}
-Version:	1.2
+Version:	1.3
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
 Source0:	http://home.mag.cx/messenger/source/%{_module_name}-%{version}.tar.gz
-# Source0-md5:	882bf815a1d1db06598022a6c6e4fc7a
+# Source0-md5:	c8ce68ad16d7fd2674c394b581a1d57d
 Patch0:		%{name}-compat_semaphore.patch
 URL:		http://home.mag.cx/messenger/
 %if %{with kernel} && %{with dist_kernel}
@@ -86,7 +86,7 @@ USB.
 
 %prep
 %setup -q -n %{_module_name}-%{version}
-%patch0 -p1
+#%patch0 -p1
 
 %build
 rm -rf built
