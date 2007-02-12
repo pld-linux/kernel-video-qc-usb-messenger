@@ -14,7 +14,7 @@
 %define		_module_name	qc-usb-messenger
 %define	_rel	0.1
 Summary:	Kernel module for Logitech QuickCam Messenger USB cameras
-Summary(pl):	Modu³ j±dra do kamer USB Logitech QuickCam Messenger
+Summary(pl.UTF-8):   ModuÅ‚ jÄ…dra do kamer USB Logitech QuickCam Messenger
 Name:		kernel-video-%{_module_name}
 Version:	1.3
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -44,20 +44,20 @@ Here are some information about the driver:
  - Read status of the button on the camera
  - Compressed format is still unknown
 
-%description -l pl
-Trochê informacji o sterowniku:
- - obs³uguje kamery Quickcam Messenger (0x046D, 0x08F0) i (0x046D,
+%description -l pl.UTF-8
+TrochÄ™ informacji o sterowniku:
+ - obsÅ‚uguje kamery Quickcam Messenger (0x046D, 0x08F0) i (0x046D,
    0x08F6)
- - obs³uguje kamery Quickcam Communicate (0x046D, 0x08F5)
- - dostêpne rozdzielczo¶ci to 162x124, 162x248, 324x124, 324x248
- - dzia³a automatyczna ekspozycja (ale wymaga podregulowania)
- - dzia³a automatyczna przys³ona (ale wymaga podregulowania)
+ - obsÅ‚uguje kamery Quickcam Communicate (0x046D, 0x08F5)
+ - dostÄ™pne rozdzielczoÅ›ci to 162x124, 162x248, 324x124, 324x248
+ - dziaÅ‚a automatyczna ekspozycja (ale wymaga podregulowania)
+ - dziaÅ‚a automatyczna przysÅ‚ona (ale wymaga podregulowania)
  - odczytuje status przycisku kamery
  - format kompresji pozostaje nieznany
 
 %package -n kernel-smp-video-%{_module_name}
 Summary:	SMP kernel module for Logitech QuickCam Messenger USB cameras
-Summary(pl):	Modu³ j±dra SMP do kamer USB Logitech QuickCam Messenger
+Summary(pl.UTF-8):   ModuÅ‚ jÄ…dra SMP do kamer USB Logitech QuickCam Messenger
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %if %{with kernel} && %{with dist_kernel}
@@ -68,20 +68,20 @@ Requires(post,postun):	/sbin/depmod
 %description -n kernel-smp-video-%{_module_name}
 Logitech QuickCam Messenger USB cameras driver for SMP kernel.
 
-%description -n kernel-smp-video-%{_module_name} -l pl
-Sterownik do kamer USB Logitech QuickCam Messenger dla j±dra SMP.
+%description -n kernel-smp-video-%{_module_name} -l pl.UTF-8
+Sterownik do kamer USB Logitech QuickCam Messenger dla jÄ…dra SMP.
 
 %package -n %{_module_name}
 Summary:	Documentation and test program to Logitech QuickCam Messenger USB
-Summary(pl):	Dokumentacja i program testuj±cy do kamer Logitech QuickCam Messenger USB
+Summary(pl.UTF-8):   Dokumentacja i program testujÄ…cy do kamer Logitech QuickCam Messenger USB
 Release:	%{_rel}
 Group:		Base/Kernel
 
 %description -n %{_module_name}
 Documentation and test program to Logitech QuickCam Messenger USB.
 
-%description -n %{_module_name} -l pl
-Dokumentacja i program testuj±cy do kamer Logitech QuickCam Messenger
+%description -n %{_module_name} -l pl.UTF-8
+Dokumentacja i program testujÄ…cy do kamer Logitech QuickCam Messenger
 USB.
 
 %prep
