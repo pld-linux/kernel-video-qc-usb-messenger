@@ -14,7 +14,7 @@
 %define		_module_name	qc-usb-messenger
 %define	_rel	0.1
 Summary:	Kernel module for Logitech QuickCam Messenger USB cameras
-Summary(pl.UTF-8):   Moduł jądra do kamer USB Logitech QuickCam Messenger
+Summary(pl.UTF-8):	Moduł jądra do kamer USB Logitech QuickCam Messenger
 Name:		kernel-video-%{_module_name}
 Version:	1.3
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -57,7 +57,7 @@ Trochę informacji o sterowniku:
 
 %package -n kernel-smp-video-%{_module_name}
 Summary:	SMP kernel module for Logitech QuickCam Messenger USB cameras
-Summary(pl.UTF-8):   Moduł jądra SMP do kamer USB Logitech QuickCam Messenger
+Summary(pl.UTF-8):	Moduł jądra SMP do kamer USB Logitech QuickCam Messenger
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %if %{with kernel} && %{with dist_kernel}
@@ -73,7 +73,7 @@ Sterownik do kamer USB Logitech QuickCam Messenger dla jądra SMP.
 
 %package -n %{_module_name}
 Summary:	Documentation and test program to Logitech QuickCam Messenger USB
-Summary(pl.UTF-8):   Dokumentacja i program testujący do kamer Logitech QuickCam Messenger USB
+Summary(pl.UTF-8):	Dokumentacja i program testujący do kamer Logitech QuickCam Messenger USB
 Release:	%{_rel}
 Group:		Base/Kernel
 
