@@ -4,32 +4,27 @@
 # Conditional build:
 %bcond_without	dist_kernel	# without distribution kernel
 %bcond_without	kernel		# don't build kernel modules
-%bcond_without	smp		# don't build SMP module
 %bcond_without	userspace	# don't build userspace utility
-#
-%ifarch sparc
-%undefine with_smp
-%endif
 #
 %define		_module_name	qc-usb-messenger
 %define	_rel	0.1
 Summary:	Kernel module for Logitech QuickCam Messenger USB cameras
 Summary(pl.UTF-8):	Moduł jądra do kamer USB Logitech QuickCam Messenger
 Name:		kernel-video-%{_module_name}
-Version:	1.3
+Version:	1.5
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
 Source0:	http://home.mag.cx/messenger/source/%{_module_name}-%{version}.tar.gz
-# Source0-md5:	c8ce68ad16d7fd2674c394b581a1d57d
+# Source0-md5:	8153aacef6a1875371a9d9d03fea8590
 Patch0:		%{name}-compat_semaphore.patch
 URL:		http://home.mag.cx/messenger/
 %if %{with kernel} && %{with dist_kernel}
-BuildRequires:	kernel-module-build >= 3:2.6}
+BuildRequires:	kernel-module-build >= 3:2.6
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.118
 %if %{with kernel} && %{with dist_kernel}
-%requires_releq_kernel_up
+%requires_releq_kernel
 %endif
 Requires(post,postun):	/sbin/depmod
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -55,22 +50,6 @@ Trochę informacji o sterowniku:
  - odczytuje status przycisku kamery
  - format kompresji pozostaje nieznany
 
-%package -n kernel-smp-video-%{_module_name}
-Summary:	SMP kernel module for Logitech QuickCam Messenger USB cameras
-Summary(pl.UTF-8):	Moduł jądra SMP do kamer USB Logitech QuickCam Messenger
-Release:	%{_rel}@%{_kernel_ver_str}
-Group:		Base/Kernel
-%if %{with kernel} && %{with dist_kernel}
-%requires_releq_kernel_smp
-%endif
-Requires(post,postun):	/sbin/depmod
-
-%description -n kernel-smp-video-%{_module_name}
-Logitech QuickCam Messenger USB cameras driver for SMP kernel.
-
-%description -n kernel-smp-video-%{_module_name} -l pl.UTF-8
-Sterownik do kamer USB Logitech QuickCam Messenger dla jądra SMP.
-
 %package -n %{_module_name}
 Summary:	Documentation and test program to Logitech QuickCam Messenger USB
 Summary(pl.UTF-8):	Dokumentacja i program testujący do kamer Logitech QuickCam Messenger USB
@@ -90,37 +69,8 @@ USB.
 
 %build
 rm -rf built
-mkdir -p built/{nondist,smp,up}
-for cfg in %{?with_dist_kernel:%{?with_smp:smp} up}%{!?with_dist_kernel:nondist}; do
-	if [ ! -r "%{_kernelsrcdir}/config-$cfg" ]; then
-		exit 1
-	fi
-	install -d o/include/linux
-	ln -sf %{_kernelsrcdir}/config-$cfg o/.config
-	ln -sf %{_kernelsrcdir}/include/linux/autoconf-$cfg.h o/include/linux/autoconf.h
-	ln -sf %{_kernelsrcdir}/Module.symvers-$cfg o/Module.symvers
-%if %{with dist_kernel}
-	%{__make} -j1 -C %{_kernelsrcdir} O=$PWD/o prepare scripts
-%else
-	install -d o/include/config
-	touch o/include/config/MARKER
-	ln -sf %{_kernelsrcdir}/scripts o/scripts
-%endif
-	%{__make} -C %{_kernelsrcdir} clean \
-		RCS_FIND_IGNORE="-name '*.ko' -o" \
-		SYSSRC=%{_kernelsrcdir} \
-		SYSOUT=$PWD/o \
-		M=$PWD O=$PWD/o \
-		%{?with_verbose:V=1}
-	%{__make} -C %{_kernelsrcdir} modules \
-		CC="%{__cc}" CPP="%{__cpp}" \
-		SYSSRC=%{_kernelsrcdir} \
-		SYSOUT=$PWD/o \
-		M=$PWD O=$PWD/o \
-		%{?with_verbose:V=1}
 
-	mv *.ko built/$cfg
-done
+%build_kernel_modules -m quickcam
 
 %if %{with userspace}
 %{__make} -C testquickcam \
@@ -131,18 +81,12 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},/lib/modules/%{_kernel_ver}{smp,}/video}
 
-%if %{with kernel}
-%if %{with dist_kernel} && %{with smp}
-install built/smp/quickcam.ko $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/video/quickcam.ko
-%endif
-install built/up/quickcam.ko $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/video/quickcam.ko
-%endif
+%install_kernel_modules -m quickcam -d misc
 
 %if %{with userspace}
+install -D qcset $RPM_BUILD_ROOT%{_sbindir}/qcset
 install testquickcam/testquickcam $RPM_BUILD_ROOT%{_sbindir}
-install qcset $RPM_BUILD_ROOT%{_sbindir}
 %endif
 
 %clean
@@ -154,22 +98,10 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %depmod %{_kernel_ver}
 
-%post	-n kernel-smp-video-%{_module_name}
-%depmod %{_kernel_ver}smp
-
-%postun -n kernel-smp-video-%{_module_name}
-%depmod %{_kernel_ver}smp
-
 %if %{with kernel}
 %files
 %defattr(644,root,root,755)
-/lib/modules/%{_kernel_ver}/video/*
-
-%if %{with dist_kernel} && %{with smp}
-%files -n kernel-smp-video-%{_module_name}
-%defattr(644,root,root,755)
-/lib/modules/%{_kernel_ver}smp/video/*
-%endif
+/lib/modules/%{_kernel_ver}/misc/*
 %endif
 
 %if %{with userspace}
