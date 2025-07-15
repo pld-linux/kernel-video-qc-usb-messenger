@@ -65,7 +65,7 @@ USB.
 
 %prep
 %setup -q -n %{_module_name}-%{version}
-#%patch0 -p1
+#%%patch0 -p1
 
 %build
 rm -rf built
